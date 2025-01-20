@@ -5,7 +5,7 @@
   const app = express()
   const port = process.env.PORT 
 
-  
+  app.use(express.static('public'))
 
 
   app.set('views','./views')
