@@ -1,4 +1,5 @@
   const express = require('express')
+  const systemConfig = require('./config/system')
   const routeClient = require("./routes/client/index-route")
   const routeAdmin = require('./routes/admin/index-route')
   
@@ -18,6 +19,8 @@
   app.set('views','./views')
   app.set('view engine', 'pug')
 
+  //App Local variable 
+  app.locals.prefixAdmin = systemConfig.prefixAdmin // tạo ra các biến toàn cục trên toàn dự án
   routeClient(app)
   routeAdmin(app)
 
