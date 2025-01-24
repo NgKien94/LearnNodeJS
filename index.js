@@ -1,5 +1,7 @@
   const express = require('express')
-  const route = require("./routes/client/index-route")
+  const routeClient = require("./routes/client/index-route")
+  const routeAdmin = require('./routes/admin/index-route')
+  
   const database = require("./config/database")
   require("dotenv").config()
 
@@ -16,7 +18,8 @@
   app.set('views','./views')
   app.set('view engine', 'pug')
 
-  route(app)
+  routeClient(app)
+  routeAdmin(app)
 
 
   app.listen(port, () => {
