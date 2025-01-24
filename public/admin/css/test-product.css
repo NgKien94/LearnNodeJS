@@ -1,0 +1,65 @@
+/* styles.css */
+
+/* Tùy chỉnh bảng */
+table.table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+table.table th,
+table.table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+table.table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+/* Tùy chỉnh hình ảnh sản phẩm */
+table.table td img {
+    max-width: 100px;
+    height: auto;
+}
+
+/* Tùy chỉnh badge trạng thái */
+.badge.bg-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.badge.bg-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Tùy chỉnh nút hành động */
+a.btn {
+    padding: 6px 12px;
+    font-size: 14px;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    text-align: center;
+}
+
+a.btn-warning {
+    background-color: #ffc107;
+    color: white;
+}
+
+a.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+a.btn:hover {
+    opacity: 0.8;
+}
+
+a.ms-2 {
+    margin-left: 10px;
+}
