@@ -1,3 +1,5 @@
+// Filter
+
 const listButton = document.querySelectorAll('[button-status]')
 
 
@@ -20,3 +22,28 @@ if(listButton.length > 0){
        })
     })
 }
+
+//End filter
+
+
+//Form search
+const formSearch = document.querySelector('#form-search');
+if(formSearch){
+    formSearch.addEventListener('submit',(e)=>{
+        e.preventDefault();
+        let valueSearch = document.querySelector('input[name="keyword"]').value.trim()
+        
+
+        let url = new URL(window.location.href);
+
+        if(valueSearch){
+            url.searchParams.set('keyword',valueSearch);
+        }
+        else{
+            url.searchParams.delete('keyword');
+        }
+        window.location.href = url.href;
+    })
+    
+}
+//End search

@@ -41,6 +41,11 @@ module.exports = {
             filterObject.status = req.query.status
         }
         
+        let keyword = ""
+        if(req.query.keyword){
+            keyword = req.query.keyword;
+            filterObject.title = {$regex: new RegExp(keyword,"i")} // chỉ định tìm kiếm gần đúng, luôn bọc trong regex
+        }
 
         const products = await Product.find(filterObject)
 
@@ -48,7 +53,8 @@ module.exports = {
         res.render('admin/pages/products/index', {
             pageTitle: 'Danh sách sản phẩm',
             products: products,
-            filterStatus: filterStatus
+            filterStatus: filterStatus,
+            keyword: keyword
         })
     }
     

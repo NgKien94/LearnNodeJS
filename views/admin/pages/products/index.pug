@@ -8,13 +8,30 @@ block main
     .card.mb-3 
         .card-header Bộ lọc và tìm kiếm 
         .card-body
-            each item of filterStatus
-                button(
-                    class=`btn btn-sm ms-1 btn-outline-success ${item.class}`
-                    button-status=item.status
-                    ) #{item.name}
-            
+            .row
+                .col-6 
+                    each item of filterStatus
+                        button(
+                            class=`btn btn-sm ms-1 btn-outline-success ${item.class}`
+                            button-status=item.status
+                            ) #{item.name}
                 
+                .col-6 
+                    form(id="form-search")
+                        .input-group
+                            input(
+                                type="text"
+                                placeHolder="Nhập từ khóa"
+                                name="keyword"
+                                class="form-control"
+                                style="margin-right: 8px;"
+                                value= keyword
+                            )    
+                            .input-group-append
+                                button(
+                                    class="btn btn-success"
+                                    type="submit"
+                                ) Tìm 
 
     .card.mb-3 
         .card-header Danh sách sản phẩm 
