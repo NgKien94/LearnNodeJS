@@ -22,26 +22,39 @@ module.exports = {
 
 
         //Search
-       // regex, 
-        const searchObject = searchHelpers(req.query);
-        if(searchObject.regex){
-            findObject.title = searchObject.regex;
+        // regex, 
+        const objectSearch = searchHelpers(req.query);
+        if (objectSearch.regex) {
+            findObject.title = objectSearch.regex;
         }
-    
-
         //End Search
 
 
-        // cập nhật  findObject theo hành vi của người dùng , (search và filter)
+        // Pagination
+        const objectPagination = {
+            currentPage: parseInt(req.query.page) || 1,
+            limitItems: 4
+        }
 
-        const products = await Product.find(findObject)
+        const countProducts = await Product.countDocuments(findObject);
+        const totalPage = Math.ceil(countProducts / objectPagination.limitItems);
+        objectPagination.totalPage = totalPage;
+
+        objectPagination.skip = (objectPagination.currentPage - 1) * 4;
+
+        // End pagiation
+
+        const products = await Product.find(findObject).limit(objectPagination.limitItems).skip(objectPagination.skip)
+        // limit - lấy tối đa bao nhiêu sản phẩm
+        // skip - bỏ qua bao nhiêu sản phẩm trước đó
 
 
         res.render('admin/pages/products/index', {
             pageTitle: 'Danh sách sản phẩm',
             products: products,
             filterStatus: filterStatus,
-            keyword: searchObject.keyword
+            keyword: objectSearch.keyword,
+            pagination: objectPagination
         })
     }
 

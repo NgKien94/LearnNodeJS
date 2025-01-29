@@ -47,5 +47,22 @@ block main
                                     a.btn.btn-danger.text-white.ms-2(href="#") Xóa
     
 
+    nav 
+        ul(class="pagination")
+            if(pagination.currentPage > 1)
+                li(class="page-item")
+                    button(class="page-link"  button-pagination= pagination.currentPage - 1) Trang trước 
+
+            - for(var i = 1 ;i <= pagination.totalPage;i++)
+                li(class=`page-item ${pagination.currentPage == i ? "active":"" }`
+                    button-pagination= i
+                    )
+                    button(class="page-link") #{i}
+                   
+            if(pagination.currentPage < pagination.totalPage)
+                li(class="page-item"
+                    button-pagination = pagination.currentPage + 1)
+                    button(class="page-link") Kế tiếp
+
 block footerLink 
     script(src="/admin/js/script.js") 
