@@ -2,7 +2,8 @@
   const systemConfig = require('./config/system')
   const routeClient = require("./routes/client/index-route")
   const routeAdmin = require('./routes/admin/index-route')
-  
+  const methodOverride = require('method-override') // ghi đè method của form
+
   const database = require("./config/database")
   require("dotenv").config()
 
@@ -11,6 +12,7 @@
 
 
   const app = express()
+  app.use(methodOverride('_method')) // ghi đè method của form
   const port = process.env.PORT 
 
   app.use(express.static('public'))

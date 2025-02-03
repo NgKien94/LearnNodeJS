@@ -4,9 +4,9 @@ const filterStatusHelpers = require('../../helpers/filterStatus');
 const searchHelpers = require('../../helpers/search')
 const paginationHelpers = require('../../helpers/pagination')
 
-module.exports = {
-    index: async (req, res) => {
-
+// GET /admin/products/
+module.exports.index = async (req,res) =>{
+    
         // Filter
         const filterStatus = filterStatusHelpers(req.query);
 
@@ -54,6 +54,22 @@ module.exports = {
             keyword: objectSearch.keyword,
             pagination: objectPagination
         })
-    }
-
 }
+
+
+// PATCH /admin/products/change-status/:status/:id
+module.exports.changeStatus = async (req,res) =>{
+    const status = req.params.status;
+    const id = req.params.id;
+
+    await Product.updateOne({_id : id},{
+        $set: {
+            status: status // dùng $set khi cập nhật nhiều trường
+            
+        }
+    })
+    
+    res.redirect(req.get('Referrer') || '/admin/products') // thay vì dùng back đã lỗi thời
+}
+
+
