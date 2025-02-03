@@ -1,3 +1,4 @@
+//Change status
 const buttonsChangeStatus = document.querySelectorAll('[button-change-status]');
 
 if(buttonsChangeStatus.length > 0){
@@ -18,3 +19,5 @@ if(buttonsChangeStatus.length > 0){
         })
     })
 }
+
+//End change status

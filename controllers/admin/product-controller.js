@@ -61,6 +61,7 @@ module.exports.index = async (req,res) =>{
 module.exports.changeStatus = async (req,res) =>{
     const status = req.params.status;
     const id = req.params.id;
+ 
 
     await Product.updateOne({_id : id},{
         $set: {
@@ -72,4 +73,29 @@ module.exports.changeStatus = async (req,res) =>{
     res.redirect(req.get('Referrer') || '/admin/products') // thay vì dùng back đã lỗi thời
 }
 
+// PATCH /admin/products/change-multi
+module.exports.changeMulti = async (req,res) =>{
+    const ids = req.body.ids.split(',');
+    const status = req.body.type;
+    
+    switch(status){
+        case "active":
+              await  Product.updateMany(
+                    {_id: {$in: ids}}, // Điều kiện lọc: _id nằm trong mảng ids
+                    {$set: {status: status}}
+                )
+                
+              
+            break;
+        case "inactive":
+            await  Product.updateMany(
+                {_id: {$in: ids}}, // Điều kiện lọc: _id nằm trong mảng ids
+                {$set: {status: status}}
+            )
+            
+        
+            break;
+    }
 
+    res.redirect(req.get('Referrer') || '/admin/products')
+}

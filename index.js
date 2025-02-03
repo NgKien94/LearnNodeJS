@@ -3,6 +3,8 @@
   const routeClient = require("./routes/client/index-route")
   const routeAdmin = require('./routes/admin/index-route')
   const methodOverride = require('method-override') // ghi đè method của form
+  const  bodyParser = require('body-parser');
+
 
   const database = require("./config/database")
   require("dotenv").config()
@@ -13,6 +15,8 @@
 
   const app = express()
   app.use(methodOverride('_method')) // ghi đè method của form
+  app.use(bodyParser.urlencoded({ extended: false })) // body-parser, phân tích body của HTTP request
+
   const port = process.env.PORT 
 
   app.use(express.static('public'))
