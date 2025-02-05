@@ -72,8 +72,15 @@ block main
                                         ) Dừng hoạt động
 
                                 td
-                                    a.btn.btn-warning.text-white(href="#") Sửa
-                                    a.btn.btn-danger.text-white.ms-2(href="#") Xóa
+                                    button(
+                                        class="btn btn-warning text-white"
+
+                                        ) Sửa
+                                    button(
+                                        class="btn btn-danger text-white ms-2"
+                                        button-delete
+                                        data-id = item.id 
+                                        ) Xóa
     
     +pagination(pagination)
     form(
@@ -81,6 +88,14 @@ block main
         method="POST"
         data-path=`${prefixAdmin}/products/change-status/`
         id="form-change-status"
+        
+        ) 
+    
+    form(
+        action=""
+        method="POST"
+        data-path=`${prefixAdmin}/products/delete`
+        id="form-delete-item"
         
         ) 
 
