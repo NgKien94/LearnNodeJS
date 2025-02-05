@@ -72,6 +72,7 @@ module.exports.changeStatus = async (req, res) => {
 
         }
     })
+    req.flash('success', 'Cập nhật trạng thái thành công');
 
     res.redirect(req.get('Referrer') || '/admin/products') // thay vì dùng back đã lỗi thời
 }
@@ -87,7 +88,7 @@ module.exports.changeMulti = async (req, res) => {
                 { _id: { $in: ids } }, // Điều kiện lọc: _id nằm trong mảng ids
                 { $set: { status: status } }
             )
-
+            req.flash('success', `Cập nhật trạng thái thành công cho ${ids.length} sản phẩm`);
 
             break;
         case "inactive":
@@ -95,6 +96,7 @@ module.exports.changeMulti = async (req, res) => {
                 { _id: { $in: ids } }, // Điều kiện lọc: _id nằm trong mảng ids
                 { $set: { status: status } }
             )
+            req.flash('success', `Cập nhật trạng thái thành công cho ${ids.length} sản phẩm`);
             break;
         case "delete-all":
             await Product.updateMany(
@@ -106,7 +108,7 @@ module.exports.changeMulti = async (req, res) => {
                     }
                 }
             )
-
+            req.flash('success', `Xóa thành công ${ids.length} sản phẩm`);
             break;
         case "change-position":
             for (const item of ids) {
@@ -122,9 +124,10 @@ module.exports.changeMulti = async (req, res) => {
                     }
                 )
             }
+            req.flash('success', `Cập nhật vị trí thành công cho ${ids.length} sản phẩm`);
             break;
     }
-
+    
     res.redirect(req.get('Referrer') || '/admin/products')
 }
 
@@ -147,5 +150,6 @@ module.exports.deleteItem = async (req, res) => {
             }
         }
     ) // xóa mềm 
+    req.flash('success', `Xóa thành công  sản phẩm`);
     res.redirect(req.get('Referrer') || '/admin/products')
 }

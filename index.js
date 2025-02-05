@@ -4,6 +4,10 @@
   const routeAdmin = require('./routes/admin/index-route')
   const methodOverride = require('method-override') // ghi đè method của form
   const  bodyParser = require('body-parser');
+const flash = require('express-flash')
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
+
 
 
   const database = require("./config/database")
@@ -25,8 +29,20 @@
   app.set('views','./views')
   app.set('view engine', 'pug')
 
+  app.use(cookieParser('ABCDEFK')); // đối số là key bất kỳ - chìa khóa bí mật cho cookie
+  app.use(session({
+    secret: 'ABC123', // Chìa khóa bí mật cho session
+    resave: false, // Không lưu lại phiên nếu không có thay đổi
+    saveUninitialized: true, // Lưu phiên mặc dù không có gì thay đổi
+    cookie: { maxAge: 60000 } // Thời gian tồn tại của cookie (60000ms = 1 phút)
+  }));
+  
+  app.use(flash());
+
   //App Local variable 
   app.locals.prefixAdmin = systemConfig.prefixAdmin // tạo ra các biến toàn cục trên toàn dự án
+
+  
   routeClient(app)
   routeAdmin(app)
 
