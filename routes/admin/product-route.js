@@ -8,6 +8,6 @@ route.patch('/change-status/:status/:id',controller.changeStatus)
 
 route.patch('/change-multi', controller.changeMulti)
 
-route.delete('/delete/:id',controller.deleteItem)
+route.delete('/delete/:id',controller.deleteItem) // xóa cứng hay xóa mềm vẫn tương tự route
 
 module.exports = route;

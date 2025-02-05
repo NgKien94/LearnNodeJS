@@ -101,10 +101,16 @@ module.exports.changeMulti = async (req,res) =>{
 }
 
 //DELETE /admin/products/delete/:id
+// XÓA CỨNG thì xóa luôn sản phẩm dùng deleteOne
+// Xóa mềm thì chỉ cập nhật trường deleted = true - updateOne
 
-module.exports.deleteItem = async (req,res)=>{
+module.exports.deleteItem = async (req,res)=>{ 
     const id = req.params.id;
     
-    await  Product.deleteOne({_id : id});
+    await  Product.deleteOne({_id : id}); // xóa cứng 
+    //    await Product.updateOne(
+    //         {_id: id},
+    //         {$set: {deleted: true}}
+    //     ) // xóa mềm 
     res.redirect(req.get('Referrer') || '/admin/products')
 }
