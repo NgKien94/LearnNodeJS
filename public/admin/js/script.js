@@ -110,20 +110,32 @@ if (checkBoxMulti) {
 
 //Form change-multi
 const formChangeMulti = document.querySelector('[form-change-multi]');
-if(formChangeMulti){
-    formChangeMulti.addEventListener('submit',(e)=>{
+if (formChangeMulti) {
+    formChangeMulti.addEventListener('submit', (e) => {
         e.preventDefault();
         const inputsCheked = checkBoxMulti.querySelectorAll('input[name="id"]:checked')
-        
-        if(inputsCheked.length > 0){
-            const ids = Array.from(inputsCheked).map( currentInput => currentInput.value)
-            
+
+        const typeChange = e.target.elements.type.value;
+        // e.target.elements lấy tất cả các phần tử trong form đó- có thể truy cập qua thuộc tính name
+
+        if (typeChange == 'delete-all') {
+            const isConfirm = confirm('Bạn có muốn xóa những sản phẩm này!? ');
+            if (!isConfirm) {
+                return; // xác nhận xóa thì gửi type lên server
+                // ngược lại sẽ không thực hiện hành động
+            }
+        }
+
+
+        if (inputsCheked.length > 0) {
+            const ids = Array.from(inputsCheked).map(currentInput => currentInput.value)
+
             const inputIds = formChangeMulti.querySelector('input[name="ids"]');
             inputIds.value = ids.join(',');
 
             formChangeMulti.submit();
         }
-      
+
     })
 }
 //End form change-multi
