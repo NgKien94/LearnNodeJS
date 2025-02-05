@@ -42,7 +42,10 @@ module.exports.index = async (req, res) => {
 
     // End pagiation
 
-    const products = await Product.find(findObject).limit(objectPagination.limitItems).skip(objectPagination.skip)
+    const products = await Product.find(findObject)
+    .sort({position: "desc"})
+    .limit(objectPagination.limitItems)
+    .skip(objectPagination.skip)
     // limit - lấy tối đa bao nhiêu sản phẩm
     // skip - bỏ qua bao nhiêu sản phẩm trước đó
 
@@ -92,6 +95,7 @@ module.exports.changeMulti = async (req, res) => {
                 { _id: { $in: ids } }, // Điều kiện lọc: _id nằm trong mảng ids
                 { $set: { status: status } }
             )
+            break;
         case "delete-all":
             await Product.updateMany(
                 { _id: { $in: ids } },
@@ -103,6 +107,21 @@ module.exports.changeMulti = async (req, res) => {
                 }
             )
 
+            break;
+        case "change-position":
+            for (const item of ids) {
+                let [id, position] = item.split('-');
+                position = parseInt(position)
+
+                await Product.updateOne(
+                    { _id: id },
+                    {
+                        $set: {
+                            position: position
+                        }
+                    }
+                )
+            }
             break;
     }
 

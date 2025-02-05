@@ -128,12 +128,32 @@ if (formChangeMulti) {
 
 
         if (inputsCheked.length > 0) {
-            const ids = Array.from(inputsCheked).map(currentInput => currentInput.value)
-
+            let ids = []
             const inputIds = formChangeMulti.querySelector('input[name="ids"]');
+
+            const inputsChecked = checkBoxMulti.querySelectorAll('input[name="id"]:checked');
+            inputsChecked.forEach(input =>{
+                const id = input.value;
+
+                if(typeChange == "change-position"){
+                    const position = input.closest("tr").querySelector("input[name='position']").value;
+                    // closet dùng để tìm phần tử cha gần nhất trong DOM tree, tham số là dạng css selector của cha
+                   ids.push(`${id}-${position}`);
+
+                }
+                else{
+                    ids.push(id)
+                }
+            })
+            
+        
+            
             inputIds.value = ids.join(',');
 
             formChangeMulti.submit();
+        }
+        else{
+            alert('Vui lòng chọn ít nhất 1 bản ghi');
         }
 
     })
