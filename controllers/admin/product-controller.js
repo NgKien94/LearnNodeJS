@@ -107,10 +107,16 @@ module.exports.changeMulti = async (req,res) =>{
 module.exports.deleteItem = async (req,res)=>{ 
     const id = req.params.id;
     
-    await  Product.deleteOne({_id : id}); // xóa cứng 
-    //    await Product.updateOne(
-    //         {_id: id},
-    //         {$set: {deleted: true}}
-    //     ) // xóa mềm 
+   // await  Product.deleteOne({_id : id}); // xóa cứng 
+
+       await Product.updateOne(
+            {_id: id},
+            {$set:
+                 {
+                    deleted: true,
+                    deletedAt: new Date()
+                 }
+                }
+        ) // xóa mềm 
     res.redirect(req.get('Referrer') || '/admin/products')
 }
