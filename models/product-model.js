@@ -14,7 +14,7 @@ const productSchema = new mongoose.Schema({
     position: Number,
     slug: {
         type: String,
-        slug: ["title","description"],
+        slug: "title",  // slug: ["title","description"] nếu trùng title thì lấy description, nếu trùng cả hai thì sẽ random string
         unique: true // slug không trùng với các slug đã tồn tại
     }, // san-pham-1
     deleted: {
