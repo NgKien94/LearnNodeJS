@@ -3,6 +3,7 @@ const Product = require('../../models/product-model')
 const filterStatusHelpers = require('../../helpers/filterStatus');
 const searchHelpers = require('../../helpers/search')
 const paginationHelpers = require('../../helpers/pagination')
+const systemConfig = require('../../config/system')
 
 // GET /admin/products/
 module.exports.index = async (req, res) => {
@@ -74,7 +75,7 @@ module.exports.changeStatus = async (req, res) => {
     })
     req.flash('success', 'Cập nhật trạng thái thành công');
 
-    res.redirect(req.get('Referrer') || '/admin/products') // thay vì dùng back đã lỗi thời
+    res.redirect(req.get('Referrer') || `${systemConfig.prefixAdmin}/products`) // thay vì dùng back đã lỗi thời
 }
 
 // PATCH /admin/products/change-multi
@@ -128,7 +129,7 @@ module.exports.changeMulti = async (req, res) => {
             break;
     }
     
-    res.redirect(req.get('Referrer') || '/admin/products')
+    res.redirect(req.get('Referrer') || `${systemConfig.prefixAdmin}/products`)
 }
 
 //DELETE /admin/products/delete/:id
@@ -151,5 +152,35 @@ module.exports.deleteItem = async (req, res) => {
         }
     ) // xóa mềm 
     req.flash('success', `Xóa thành công  sản phẩm`);
-    res.redirect(req.get('Referrer') || '/admin/products')
+    res.redirect(req.get('Referrer') || `${systemConfig.prefixAdmin}/products`)
+}
+
+
+// GET /admin/products/create // get page create a product
+module.exports.create = (req,res) =>{
+    res.render('admin/pages/products/create.pug',{
+        pageTitle: 'Tạo mới sản phẩm'
+    })
+}
+
+// POST /admin/products/create // Create a product
+module.exports.createPost = async (req,res) =>{
+   
+    req.body.price = parseInt(req.body.price)
+    req.body.discountPercentage = parseInt(req.body.discountPercentage)
+    req.body.stock = parseInt(req.body.stock)
+    
+    if(req.body.position == ""){
+        const countProducts = await Product.countDocuments()
+        
+        req.body.position = countProducts +1
+    }
+    else{
+        req.body.position = parseInt(req.body.position)
+    }
+    const product = new Product(req.body)
+    await product.save()
+    
+    res.redirect(`${systemConfig.prefixAdmin}/products`)
+
 }

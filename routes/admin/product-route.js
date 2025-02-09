@@ -10,4 +10,8 @@ route.patch('/change-multi', controller.changeMulti)
 
 route.delete('/delete/:id',controller.deleteItem) // xóa cứng hay xóa mềm vẫn tương tự route
 
+route.get('/create',controller.create)
+
+route.post('/create',controller.createPost)
+
 module.exports = route;
