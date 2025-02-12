@@ -91,3 +91,22 @@ Show alert
 /*
 End show alert
 */
+
+
+/* Image Preview - Create product
+*/
+.image-preview{
+    width: 150px;
+    height: auto;
+    margin-top: 15px;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.image-preview[src=""]{
+    display: none;
+}
+/*
+End image preview - create product
+*/
