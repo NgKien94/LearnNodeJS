@@ -3,6 +3,8 @@ const controller = require('../../controllers/admin/product-controller')
 const multer = require('multer')
 const storageMulter = require('../../helpers/storageMulter')
 const upload = multer({storage: storageMulter()})
+
+const validate = require('../../validates/admin/product-validate')
 // //Upload files
 // const path = require('path');
 // const multer = require('multer');
@@ -35,6 +37,10 @@ route.delete('/delete/:id',controller.deleteItem) // xóa cứng hay xóa mềm 
 
 route.get('/create',controller.create)
 
-route.post('/create',upload.single('thumbnail'),controller.createPost) // data trong single là thumbnail
+route.post(
+    '/create',
+    upload.single('thumbnail'),
+    validate.createPost,
+    controller.createPost) // data trong single là thumbnail
 
 module.exports = route;
