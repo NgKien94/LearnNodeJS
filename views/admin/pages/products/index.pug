@@ -11,7 +11,7 @@ include ../../mixins/alert.pug
 
 block main
     +alert-success(5000)
-
+    +alert-error(4000)
     h1 Danh sách sản phẩm
     .card.mb-3 
         .card-header Bộ lọc và tìm kiếm 
@@ -90,9 +90,9 @@ block main
                                         ) Dừng hoạt động
 
                                 td
-                                    button(
+                                    a(
                                         class="btn btn-warning text-white"
-
+                                        href=`${prefixAdmin}/products/edit/${item.id}`
                                         ) Sửa
                                     button(
                                         class="btn btn-danger text-white ms-2"

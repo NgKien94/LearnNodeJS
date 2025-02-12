@@ -44,9 +44,9 @@ module.exports.index = async (req, res) => {
     // End pagiation
 
     const products = await Product.find(findObject)
-    .sort({position: "desc"})
-    .limit(objectPagination.limitItems)
-    .skip(objectPagination.skip)
+        .sort({ position: "desc" })
+        .limit(objectPagination.limitItems)
+        .skip(objectPagination.skip)
     // limit - lấy tối đa bao nhiêu sản phẩm
     // skip - bỏ qua bao nhiêu sản phẩm trước đó
 
@@ -128,7 +128,7 @@ module.exports.changeMulti = async (req, res) => {
             req.flash('success', `Cập nhật vị trí thành công cho ${ids.length} sản phẩm`);
             break;
     }
-    
+
     res.redirect(req.get('Referrer') || `${systemConfig.prefixAdmin}/products`)
 }
 
@@ -157,36 +157,89 @@ module.exports.deleteItem = async (req, res) => {
 
 
 // GET /admin/products/create // get page create a product
-module.exports.create = (req,res) =>{
-    res.render('admin/pages/products/create.pug',{
+module.exports.create = (req, res) => {
+    res.render('admin/pages/products/create.pug', {
         pageTitle: 'Tạo mới sản phẩm'
     })
 }
 
 // POST /admin/products/create // Create a product
-module.exports.createPost = async (req,res) =>{
-    
-   
-    if(req.file){
+module.exports.createPost = async (req, res) => {
+
+
+    if (req.file) {
         req.body.thumbnail = `/uploads/${req.file.filename}` // lưu đường dẫn ảnh
     }
     req.body.price = parseInt(req.body.price)
     req.body.discountPercentage = parseInt(req.body.discountPercentage)
     req.body.stock = parseInt(req.body.stock)
-    
-    if(req.body.position == ""){
+
+    if (req.body.position == "") {
         const countProducts = await Product.countDocuments()
-        
-        req.body.position = countProducts +1
+
+        req.body.position = countProducts + 1
     }
-    else{
+    else {
         req.body.position = parseInt(req.body.position)
     }
-    
+
     const product = new Product(req.body)
     await product.save()
-   
-    
+
+
     res.redirect(`${systemConfig.prefixAdmin}/products`)
+
+}
+
+
+// GET  /admin/product/edit/:id   //View UI Edit a product
+module.exports.edit = async (req, res) => {
+
+    try {
+
+        const find = {
+            deleted: false,
+            _id: req.params.id
+        }
+
+        const product = await Product.findOne(find)
+
+
+        res.render('admin/pages/products/edit', {
+            pageTitle: 'Chỉnh sửa sản phẩm',
+            product: product
+        })
+    } catch (error) {
+        req.flash('error', `Truy cập tài nguyên không xác định`);
+        res.redirect(`${systemConfig.prefixAdmin}/products`)
+    }
+}
+
+
+// PATCH /admin/products/edit/:id // Edit a product
+module.exports.editPatch = async (req, res) => {
+    const id = req.params.id
+
+
+    if (req.file) {
+        req.body.thumbnail = `/uploads/${req.file.filename}` 
+    }
+    req.body.price = parseInt(req.body.price)
+    req.body.discountPercentage = parseInt(req.body.discountPercentage)
+    req.body.stock = parseInt(req.body.stock)
+    req.body.position = parseInt(req.body.position)
+
+    try{
+        await Product.updateOne( {_id: id},req.body)
+        req.flash('success',"Chỉnh sửa sản phẩm thành công")
+        res.redirect(req.get('Referrer') || `${systemConfig.prefixAdmin}/products`)
+    }catch(error){
+        req.flash('error',"Chỉnh sửa sản phẩm thất bại")
+        res.redirect(`${systemConfig.prefixAdmin}/products`)
+    }
+   
+
+
+    
 
 }

@@ -43,4 +43,13 @@ route.post(
     validate.createPost,
     controller.createPost) // data trong single là thumbnail
 
+
+route.get('/edit/:id',controller.edit)
+
+route.patch(
+    '/edit/:id',
+    upload.single('thumbnail'),
+    validate.createPost,
+    controller.editPatch)
+
 module.exports = route;
