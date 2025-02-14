@@ -14,4 +14,6 @@ router.get('/', controller.index)
 //     res.render('client/pages/products/index.pug')
 // })
 
+router.get('/:slug',controller.detail)
+
 module.exports = router;
