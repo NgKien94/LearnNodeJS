@@ -23,10 +23,13 @@ app.use(bodyParser.urlencoded({ extended: false })) // body-parser, phân tích 
 
 const port = process.env.PORT
 
-app.use(express.static('public'))
+
+//app.use(express.static('public')) // local sẽ hiểu
+app.use(express.static(`${__dirname}/public`)) // dành cho online khi deploy
 
 
-app.set('views', './views')
+//app.set('views', './views') // local sẽ hiểu
+app.set('views', `${__dirname}/views`) // dành cho online khi deploy
 app.set('view engine', 'pug')
 
 app.use(cookieParser('ABCDEFK')); // đối số là key bất kỳ - chìa khóa bí mật cho cookie
