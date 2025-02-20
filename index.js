@@ -1,3 +1,4 @@
+require("dotenv").config()
 const express = require('express')
 const systemConfig = require('./config/system')
 const routeClient = require("./routes/client/index-route")
@@ -11,8 +12,6 @@ const session = require('express-session')
 
 
 const database = require("./config/database")
-require("dotenv").config()
-
 database.connect()
 
 
@@ -44,6 +43,7 @@ app.use(flash());
 
 //App Local variable 
 app.locals.prefixAdmin = systemConfig.prefixAdmin // tạo ra các biến toàn cục chỉ dùng được trong các file view - (pug)
+
 
 
 routeClient(app)

@@ -166,10 +166,6 @@ module.exports.create = (req, res) => {
 // POST /admin/products/create // Create a product
 module.exports.createPost = async (req, res) => {
 
-
-    if (req.file) {
-        req.body.thumbnail = `/uploads/${req.file.filename}` // lưu đường dẫn ảnh
-    }
     req.body.price = parseInt(req.body.price)
     req.body.discountPercentage = parseInt(req.body.discountPercentage)
     req.body.stock = parseInt(req.body.stock)
@@ -182,6 +178,7 @@ module.exports.createPost = async (req, res) => {
     else {
         req.body.position = parseInt(req.body.position)
     }
+
 
     const product = new Product(req.body)
     await product.save()
@@ -222,40 +219,40 @@ module.exports.editPatch = async (req, res) => {
 
 
     if (req.file) {
-        req.body.thumbnail = `/uploads/${req.file.filename}` 
+        req.body.thumbnail = `/uploads/${req.file.filename}`
     }
     req.body.price = parseInt(req.body.price)
     req.body.discountPercentage = parseInt(req.body.discountPercentage)
     req.body.stock = parseInt(req.body.stock)
     req.body.position = parseInt(req.body.position)
 
-    try{
-        await Product.updateOne( {_id: id},req.body)
-        req.flash('success',"Chỉnh sửa sản phẩm thành công")
+    try {
+        await Product.updateOne({ _id: id }, req.body)
+        req.flash('success', "Chỉnh sửa sản phẩm thành công")
         res.redirect(req.get('Referrer') || `${systemConfig.prefixAdmin}/products`)
-    }catch(error){
-        req.flash('error',"Chỉnh sửa sản phẩm thất bại")
+    } catch (error) {
+        req.flash('error', "Chỉnh sửa sản phẩm thất bại")
         res.redirect(`${systemConfig.prefixAdmin}/products`)
     }
-   
 
 
-    
+
+
 
 }
 
 
 //GET /admin/products/detail/:id  //view detail a product 
-module.exports.detail = async (req,res) =>{
+module.exports.detail = async (req, res) => {
     const find = {
         deleted: false,
-        _id : req.params.id 
+        _id: req.params.id
     }
 
     const product = await Product.findOne(find)
-  
 
-    res.render(`admin/pages/products/detail`,{
+
+    res.render(`admin/pages/products/detail`, {
         pageTitle: product.title,
         product: product
     })
