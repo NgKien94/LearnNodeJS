@@ -4,6 +4,7 @@ include ../../mixins/search.pug
 include ../../mixins/pagination.pug 
 include ../../mixins/form-change-multi.pug 
 include ../../mixins/alert.pug
+include ../../mixins/sort.pug
 
 
 //- block extraLink 
@@ -21,7 +22,13 @@ block main
                     +filter-status(filterStatus)
                 .col-6 
                     +search(keyword)
-
+    
+    .card.mb-3 
+        .card-header Sắp xếp 
+        .card-body
+            .row 
+                .col-4 
+                    +sort()
     .card.mb-3 
         .card-header Danh sách sản phẩm 
         .card-body
@@ -33,6 +40,8 @@ block main
                         href=`${prefixAdmin}/products/create`
                         class="btn btn-outline-success"
                     ) + Thêm mới
+
+
             table(
                 class="table table-bordered table-striped mt-4"
                 checkbox-multi

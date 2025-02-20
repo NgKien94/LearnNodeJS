@@ -1,5 +1,6 @@
-require("dotenv").config()
 const express = require('express')
+require("dotenv").config()
+
 const systemConfig = require('./config/system')
 const routeClient = require("./routes/client/index-route")
 const routeAdmin = require('./routes/admin/index-route')

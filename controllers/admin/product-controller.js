@@ -7,7 +7,6 @@ const systemConfig = require('../../config/system')
 
 // GET /admin/products/
 module.exports.index = async (req, res) => {
-
     // Filter
     const filterStatus = filterStatusHelpers(req.query);
 
@@ -31,6 +30,16 @@ module.exports.index = async (req, res) => {
     }
     //End Search
 
+    //Sort
+    let sort = {}
+    if (req.query.sortKey && req.query.sortValue) {
+        sort[req.query.sortKey] = req.query.sortValue
+    } else {
+        sort.position = "desc" // default sort
+    }
+
+
+    //End sort
 
     // Pagination
     const countProducts = await Product.countDocuments(findObject);
@@ -44,7 +53,7 @@ module.exports.index = async (req, res) => {
     // End pagiation
 
     const products = await Product.find(findObject)
-        .sort({ position: "desc" })
+        .sort(sort)
         .limit(objectPagination.limitItems)
         .skip(objectPagination.skip)
     // limit - lấy tối đa bao nhiêu sản phẩm
@@ -56,7 +65,7 @@ module.exports.index = async (req, res) => {
         products: products,
         filterStatus: filterStatus,
         keyword: objectSearch.keyword,
-        pagination: objectPagination
+        pagination: objectPagination,
     })
 }
 
