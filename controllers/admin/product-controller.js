@@ -174,7 +174,10 @@ module.exports.create = (req, res) => {
 
 // POST /admin/products/create // Create a product
 module.exports.createPost = async (req, res) => {
-
+    if(!req.file){
+        req.body.thumbnail =""
+    }
+    console.log(req.body)
     req.body.price = parseInt(req.body.price)
     req.body.discountPercentage = parseInt(req.body.discountPercentage)
     req.body.stock = parseInt(req.body.stock)
@@ -225,11 +228,9 @@ module.exports.edit = async (req, res) => {
 // PATCH /admin/products/edit/:id // Edit a product
 module.exports.editPatch = async (req, res) => {
     const id = req.params.id
-
-
-    if (req.file) {
-        req.body.thumbnail = `/uploads/${req.file.filename}`
-    }
+    
+    
+    
     req.body.price = parseInt(req.body.price)
     req.body.discountPercentage = parseInt(req.body.discountPercentage)
     req.body.stock = parseInt(req.body.stock)

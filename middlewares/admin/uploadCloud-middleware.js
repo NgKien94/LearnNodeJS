@@ -31,12 +31,19 @@ module.exports.upload = (req, res, next) => {
             });
         };
 
-        async function upload(req) {
-            let result = await streamUpload(req);
-            req.body[req.file.fieldname] = result.secure_url;
-            next();
+        async function uploadCloud(req) {
+            try {
+                let result = await streamUpload(req);
+                req.body[req.file.fieldname] = result.secure_url;
+                next();
+
+            } catch (error) {
+                console.error("Lỗi upload Cloudinary:", error);
+            }
         }
-        upload(req);
+
+        uploadCloud(req).catch((error) => next(error)) // truyền thẳng đến middleware xử lý lỗi
+
     }
     else {
         // trường hợp không có file upload

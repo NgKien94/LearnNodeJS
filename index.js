@@ -1,6 +1,7 @@
 const express = require('express')
 require("dotenv").config()
 
+const path = require('path')
 const systemConfig = require('./config/system')
 const routeClient = require("./routes/client/index-route")
 const routeAdmin = require('./routes/admin/index-route')
@@ -41,6 +42,10 @@ app.use(session({
 }));
 
 app.use(flash());
+
+// Tiny MCE
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
+//End Tiny MCE
 
 //App Local variable 
 app.locals.prefixAdmin = systemConfig.prefixAdmin // tạo ra các biến toàn cục chỉ dùng được trong các file view - (pug)
