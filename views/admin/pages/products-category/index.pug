@@ -1,0 +1,85 @@
+extends ../../layouts/default.pug
+
+block main
+    h1 Danh mục sản phẩm
+    .card.mb-3 
+        .card-header Danh mục sản phẩm 
+        .card-body
+            .row 
+                .col-8    
+                .col-4 
+                    a(
+                        href=`${prefixAdmin}/products-category/create`
+                        class="btn btn-outline-success"
+                    ) + Thêm mới
+    
+    table(
+        class="table table-bordered table-striped mt-4"
+        checkbox-multi
+        )
+        thead
+            tr
+                th 
+                    input(type="checkbox" name="checkall")
+                th STT
+                th Hình ảnh
+                th Tiêu đề
+                th Vị trí
+                th Trạng thái
+                th Hành động
+        tbody
+            
+            each item,index in records 
+                tr
+                    td 
+                        input(
+                            type="checkbox"
+                            name="id"
+                            value=item.id
+                        )
+                    td #{index + 1}
+                    td
+                        img(src= item.thumbnail alt=item.title width="100" height="auto")
+                    td #{item.title}
+                    td 
+                        input(
+                            type="number"
+                            value = item.position 
+                            style="width: 60px"
+                            min="1"
+                            name="position"
+                        )
+                    td
+                        if (item.status == "active")
+                            span(
+                                class="badge bg-success"
+                                style="cursor: pointer;"
+                                data-status=item.status
+                                data-id = item.id
+                                button-change-status
+                                ) Hoạt động
+                        else 
+                            span(
+                                class="badge bg-danger"
+                                style="cursor: pointer;"
+                                data-status=item.status
+                                data-id = item.id
+                                button-change-status
+                            ) Dừng hoạt động
+
+                    td
+                        a(
+                            class="btn btn-secondary text-white me-3"
+                            href=`${prefixAdmin}/products-category/detail/${item.id}`
+                            ) Chi tiết
+                        a(
+                            class="btn btn-warning text-white"
+                            href=`${prefixAdmin}/products-category/edit/${item.id}`
+                            ) Sửa
+                        button(
+                            class="btn btn-danger text-white ms-2"
+                            button-delete
+                            data-id = item.id 
+                            ) Xóa
+
+
