@@ -50,6 +50,7 @@ module.exports.index = async (req, res) => {
         }, countProducts
     )
 
+
     // End pagiation
 
     const products = await Product.find(findObject)
