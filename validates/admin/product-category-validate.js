@@ -2,7 +2,7 @@ module.exports.createPost = (req,res,next) =>{
     // validate title (backend)
     if(!req.body.title){
         req.flash('error','Vui lòng nhập tiêu đề')
-        res.redirect(req.get('Referrer') || `${systemConfig.prefixAdmin}/products`)
+        res.redirect(req.get('Referrer') || `${systemConfig.prefixAdmin}/products-category`)
         return
     }
 
