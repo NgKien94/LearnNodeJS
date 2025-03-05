@@ -14,7 +14,7 @@ const validate = require('../../validates/admin/product-category-validate')
 route.get('/', controller.index)
 
 //[GET] /admin/products-category/create
-route.get('/create',controller.create)
+route.get('/create', controller.create)
 
 //[POST] /admin/products-category/createPost
 
@@ -25,6 +25,15 @@ route.post(
     validate.createPost,
     controller.createPost) // data trong single là thumbnail
 
+//[GET] /admin/products-category/edit
+route.get('/edit/:id', controller.edit)
 
+
+//[PATCH] /admin/products-category/edit
+route.patch('/edit/:id',
+    upload.single('thumbnail'),
+    uploadCloud.upload,
+    validate.createPost,
+    controller.editPatch)
 
 module.exports = route;
