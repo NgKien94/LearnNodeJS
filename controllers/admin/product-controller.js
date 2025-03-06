@@ -1,9 +1,11 @@
 // [GET] /admin/products/
 const Product = require('../../models/product-model')
+const ProductCategory = require('../../models/product-category-model')
 const filterStatusHelpers = require('../../helpers/filterStatus');
 const searchHelpers = require('../../helpers/search')
 const paginationHelpers = require('../../helpers/pagination')
 const systemConfig = require('../../config/system')
+const createTreeHelper = require('../../helpers/createTree')
 
 // GET /admin/products/
 module.exports.index = async (req, res) => {
@@ -167,9 +169,16 @@ module.exports.deleteItem = async (req, res) => {
 
 
 // GET /admin/products/create // get page create a product
-module.exports.create = (req, res) => {
+module.exports.create = async (req, res) => {
+    let find = {
+        deleted: false
+    }
+    const category = await ProductCategory.find(find)
+    const newCategory = await createTreeHelper.tree(category)
+    
     res.render('admin/pages/products/create.pug', {
-        pageTitle: 'Tạo mới sản phẩm'
+        pageTitle: 'Tạo mới sản phẩm',
+        category: newCategory
     })
 }
 
