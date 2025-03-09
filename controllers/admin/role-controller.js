@@ -18,7 +18,7 @@ module.exports.index = async (req, res) => {
 }
 
 
-// [GET] /admin/create/
+// [GET] /admin/roles/create/
 module.exports.create = (req, res) => {
 
     res.render('admin/pages/roles/create.pug', {
@@ -27,7 +27,7 @@ module.exports.create = (req, res) => {
 }
 
 
-// [POST] /admin/create/
+// [POST] /admin/roles/create/
 module.exports.createPost = async (req, res) => {
 
 
@@ -38,7 +38,7 @@ module.exports.createPost = async (req, res) => {
 }
 
 
-// [GET] /admin/edit/:id
+// [GET] /admin/roles/edit/:id
 module.exports.edit = async (req, res) => {
     try {
         const id = req.params.id
@@ -62,7 +62,7 @@ module.exports.edit = async (req, res) => {
 }
 
 
-// [PATCH] /admin/edit/:id
+// [PATCH] /admin/roles/edit/:id
 module.exports.editPatch = async (req, res) => {
     try {
         const id = req.params.id
@@ -74,4 +74,18 @@ module.exports.editPatch = async (req, res) => {
         req.flash('error', "Cập nhật quyền thất bại")
     }
     res.redirect(req.get('Referrer') || `${systemConfig.prefixAdmin}/roles`)
+}
+
+
+// [GET] /admin/roles/permissions
+module.exports.permissions = async (req, res) => {
+    let find = {
+        deleted: false
+    }
+
+    const records = await Role.find(find);
+    res.render('admin/pages/roles/permissions.pug', {
+        pageTitle: "Phân quyền",
+        records: records
+    })
 }
