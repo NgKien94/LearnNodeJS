@@ -3,6 +3,10 @@ header.header
         .row.align-item-center 
             .col-3 
                 .inner-logo 
-                    a(href="/admin/dashboard") ADMIN 
-            
+                    a(href="/admin/dashboard") ADMIN
             .col-9
+                div(class="d-flex justify-content-end align-item-center")
+                    a(
+						href=`${prefixAdmin}/auth/logout`
+						class="btn btn-danger btn-sm"
+					) Đăng xuất
