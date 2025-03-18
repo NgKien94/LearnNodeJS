@@ -10,6 +10,7 @@ const bodyParser = require('body-parser');
 const flash = require('express-flash')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
+const moment = require('moment')
 
 
 
@@ -49,7 +50,7 @@ app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce
 
 //App Local variable 
 app.locals.prefixAdmin = systemConfig.prefixAdmin // tạo ra các biến toàn cục chỉ dùng được trong các file view - (pug)
-
+app.locals.moment = moment;
 
 
 routeClient(app)
