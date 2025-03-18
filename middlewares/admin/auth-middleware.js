@@ -16,7 +16,7 @@ module.exports.requireAuth = async (req, res, next) => {
 
            
             res.locals.user = user; // trả user hiện tại ra cho view, để authorization
-             res.locals.role = role; // trả role hiện tại ra cho view, để authorization
+            res.locals.role = role; // trả role hiện tại ra cho view, để authorization
             next();
         }
         else{

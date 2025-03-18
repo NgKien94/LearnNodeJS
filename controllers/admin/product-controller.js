@@ -127,7 +127,10 @@ module.exports.changeMulti = async (req, res) => {
                 {
                     $set: {
                         deleted: true,
-                        deletedAt: new Date()
+                        deletedBy: {
+                            account_id : res.locals.user.id,
+                            deletedAt:  new Date()
+                        }
                     }
                 }
             )
@@ -169,7 +172,11 @@ module.exports.deleteItem = async (req, res) => {
             $set:
             {
                 deleted: true,
-                deletedAt: new Date() // lấy thêm thời gian xóa
+             
+                deletedBy: {
+                    account_id : res.locals.user.id,
+                    deletedAt:  new Date()
+                }
             }
         }
     ) // xóa mềm 
