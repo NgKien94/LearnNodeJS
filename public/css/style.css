@@ -119,6 +119,63 @@ footer p {
 }
 
 /*SUB MENU - NONE CSS*/
+/* Định dạng submenu */
+.sub-menu {
+    position: relative;
+}
 
+/* Ẩn menu con mặc định */
+.sub-menu ul {
+    display: none; /* Ẩn mặc định */
+    position: absolute;
+    top: 100%; /* Hiển thị bên dưới menu cha */
+    right: 100%;;
+    min-width:  140px;
+    background-color: rgb(19, 163, 199);
+    padding: 0;
+    border-radius: 5px;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
 
+/* Khi hover vào menu cha, hiển thị menu con */
+.sub-menu:hover > ul {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
 
+/* Định dạng item trong menu */
+.sub-menu ul li {
+    position: relative;
+    padding: 10px;
+    border-bottom: 1px solid #aaa;
+    color: white;
+    white-space: nowrap;
+    width: 100%;
+}
+
+/* Hover vào item đổi màu */
+.sub-menu ul li:hover {
+    background-color: #115f83;
+}
+
+/* Hiển thị menu cấp 3 bên phải */
+.sub-menu ul li ul {
+    position: absolute;
+    top: 0;
+    right: 100%; /* Xuất hiện bên phải menu cha */
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    width: max-content;
+}
+
+/* Hiển thị menu cấp 3 khi hover vào item cấp 2 */
+.sub-menu ul li:hover > ul {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
