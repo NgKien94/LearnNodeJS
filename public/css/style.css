@@ -33,7 +33,25 @@
     height: 120px; /* Giảm chiều cao của ảnh */
     object-fit: cover;
     border-bottom: 1px solid #ddd;
+
 }
+
+.product-item .inner-image {
+    position: relative;
+}
+
+.product-item .inner-featured {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: green;
+    color:white;
+    padding: 3px 6px;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 8px;
+}
+
 
 .inner-content {
     padding: 10px;
@@ -69,6 +87,8 @@
     margin-top: 5px;
     display: inline-block;
 }
+
+
 
 /* ===== HEADER ===== */
 header {
@@ -179,3 +199,5 @@ footer p {
     opacity: 1;
     visibility: visible;
 }
+
+
