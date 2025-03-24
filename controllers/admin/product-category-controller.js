@@ -40,20 +40,27 @@ module.exports.create = async (req, res) => {
 
 //[POST] /admin/products-category/create
 module.exports.createPost = async (req, res) => {
+    const permissions = res.locals.role.permissions
+    if (permissions.includes("products-category_create")) {
+        if (!req.file) {
+            req.body.thumbnail = ""
+        }
+        if (req.body.position == "") {
+            req.body.position = await ProductCategory.countDocuments() + 1;
+        }
+        else {
+            req.body.position = parseInt(req.body.position);
+        }
 
-    if (!req.file) {
-        req.body.thumbnail = ""
-    }
-    if (req.body.position == "") {
-        req.body.position = await ProductCategory.countDocuments() + 1;
+        const record = new ProductCategory(req.body);
+        await record.save()
+        res.redirect(`${systemConfig.prefixAdmin}/products-category`)
     }
     else {
-        req.body.position = parseInt(req.body.position);
+        console.log("Không có quyền");
+        return;
     }
 
-    const record = new ProductCategory(req.body);
-    await record.save()
-    res.redirect(`${systemConfig.prefixAdmin}/products-category`)
 }
 
 //[GET] /admin/products-category/edit/:id
