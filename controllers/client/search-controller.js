@@ -14,7 +14,6 @@ module.exports.index = async (req,res) =>{
         })
 
         newProducts = productsHelper.priceNewProducts(products)
-        console.log(products)
     }
 
     res.render('client/pages/search/index',{
