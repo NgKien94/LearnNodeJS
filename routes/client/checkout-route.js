@@ -6,6 +6,6 @@ const controller = require("../../controllers/client/checkout-controller");
 // const authMiddleware = require("../../middlewares/client/auth.middleware");
 
 router.get("/", controller.index);
-
+router.post('/order',controller.order)
 
 module.exports = router;
