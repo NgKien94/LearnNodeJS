@@ -13,6 +13,14 @@ module.exports.cartId =  async (req,res,next) =>{
     }
     else{
         // Đã có giỏ hàng
+        const cart = await Cart.findOne({
+            _id: req.cookies.cartId
+        });
+       
+        cart.totalQuantity = cart.products.reduce((sum,item) =>sum+item.quantity,0)
+        
+        res.locals.miniCart = cart;
+
     }
     next();
 }
