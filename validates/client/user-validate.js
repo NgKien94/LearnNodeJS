@@ -1,15 +1,15 @@
 module.exports.registerPost = (req, res, next) => {
-	if(!req.body.fullName){
+	if (!req.body.fullName) {
 		req.flash("error", `Họ tên không được bỏ trống`);
 		res.redirect("back");
 		return;
 	}
-  if(!req.body.email){
+	if (!req.body.email) {
 		req.flash("error", `Email không được bỏ trống`);
 		res.redirect("back");
 		return;
 	}
-  if(!req.body.password){
+	if (!req.body.password) {
 		req.flash("error", `Mật khẩu không được bỏ trống`);
 		res.redirect("back");
 		return;
@@ -18,12 +18,12 @@ module.exports.registerPost = (req, res, next) => {
 };
 
 module.exports.loginPost = (req, res, next) => {
-  if(!req.body.email){
+	if (!req.body.email) {
 		req.flash("error", `Email không được bỏ trống`);
 		res.redirect("back");
 		return;
 	}
-  if(!req.body.password){
+	if (!req.body.password) {
 		req.flash("error", `Mật khẩu không được bỏ trống`);
 		res.redirect("back");
 		return;
@@ -31,3 +31,12 @@ module.exports.loginPost = (req, res, next) => {
 	next();
 };
 
+
+module.exports.forgotPasswordPost = (req, res, next) => {
+	if (!req.body.email) {
+		req.flash("error", `Email không được bỏ trống`);
+		res.redirect("back");
+		return;
+	}
+	next();
+};
