@@ -7,10 +7,12 @@ const userRoutes = require("./user-route")
 
 const categoryMiddleware = require('../../middlewares/client/category-middleware')
 const cartMiddleware = require('../../middlewares/client/cart-middleware')
+const userMiddleware = require('../../middlewares/client/user-middleware')
 
 module.exports = (app) =>{
     app.use(categoryMiddleware.category); // khi chạy qua từng route sẽ luôn chạy middleware này trước
     app.use(cartMiddleware.cartId)
+    app.use(userMiddleware.infoUser) // lấy thông tin user từ cookie 
 
     app.use('/',homeRoutes)
     
