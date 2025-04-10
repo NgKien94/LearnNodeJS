@@ -10,6 +10,8 @@ const categoryMiddleware = require('../../middlewares/client/category-middleware
 const cartMiddleware = require('../../middlewares/client/cart-middleware')
 const userMiddleware = require('../../middlewares/client/user-middleware')
 const settingMiddleware = require('../../middlewares/client/setting-middleware')
+const authMiddleWare = require("../../middlewares/client/auth-middleware");
+
 
 module.exports = (app) =>{
     app.use(categoryMiddleware.category); // khi chạy qua từng route sẽ luôn chạy middleware này trước
@@ -29,6 +31,6 @@ module.exports = (app) =>{
 
     app.use('/user',userRoutes)
 
-    app.use('/chat',chatRoutes)
+    app.use('/chat',authMiddleWare.requireAuth, chatRoutes)
 
 }   

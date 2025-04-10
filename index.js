@@ -38,11 +38,10 @@ app.set('view engine', 'pug')
 // Socket io
 const server = http.createServer(app);
 const io = new Server(server);
+global._io = io;
 //End Socket io
 
-io.on('connection',(socket) =>{
-  console.log('A user connected ',socket.id)
-})
+
 
 app.use(cookieParser('ABCDEFK')); // đối số là key bất kỳ - chìa khóa bí mật cho cookie
 app.use(session({
