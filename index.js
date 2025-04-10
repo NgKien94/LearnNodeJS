@@ -11,8 +11,8 @@ const flash = require('express-flash')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const moment = require('moment')
-
-
+const http = require('http');
+const { Server } = require("socket.io");
 
 const database = require("./config/database")
 database.connect()
@@ -33,6 +33,16 @@ app.use(express.static(`${__dirname}/public`)) // dành cho online khi deploy
 //app.set('views', './views') // local sẽ hiểu
 app.set('views', `${__dirname}/views`) // dành cho online khi deploy
 app.set('view engine', 'pug')
+
+
+// Socket io
+const server = http.createServer(app);
+const io = new Server(server);
+//End Socket io
+
+io.on('connection',(socket) =>{
+  console.log('A user connected ',socket.id)
+})
 
 app.use(cookieParser('ABCDEFK')); // đối số là key bất kỳ - chìa khóa bí mật cho cookie
 app.use(session({
@@ -62,6 +72,6 @@ app.get('*', (req,res) =>{
   })
 })
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
