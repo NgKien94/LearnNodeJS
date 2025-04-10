@@ -8,7 +8,7 @@ block main
                 +box-head("Chat")
         .row
             .col-12
-                .chat
+                .chat(my-id = user.id)
                     .inner-body
                         each chat in chats 
                             div(class=(chat.infoUser.id == user.id ? "inner-outgoing":"inner-incoming"))
@@ -34,16 +34,16 @@ block main
                         //-     .inner-name Em Yêu
                         //-     .inner-content 
                         //-         | Thì em bảo nhà em không có ai ở nhà mà :))))
-                        .inner-foot 
-                            form(
-                                class="inner-form"
-                                action=""
+                    .inner-foot 
+                        form(
+                            class="inner-form"
+                            action=""
+                        )
+                            input(
+                                class="form-control"
+                                type="text"
+                                placeholder="Nhập tin nhắn của bạn..."
+                                name="content"
                             )
-                                input(
-                                    class="form-control"
-                                    type="text"
-                                    placeholder="Nhập tin nhắn của bạn..."
-                                    name="content"
-                                )
-                                button
-                                    i.fa-solid.fa-paper-plane
+                            button
+                                i.fa-solid.fa-paper-plane
