@@ -10,24 +10,30 @@ block main
             .col-12
                 .chat
                     .inner-body
-                        .inner-incoming
-                            .inner-name Em Yêu
-                            .inner-content 
-                                | Anh ơi sang nhà em nha, nhà em không có ai cả 
-                        .inner-outgoing 
-                            .inner-content 
-                                | Thế à, Ok em iu 
-                        .inner-incoming 
-                            .inner-name Em Yêu
-                            .inner-content 
-                                | Nhanh nha nhé
-                        .inner-outgoing 
-                            .inner-content 
-                                | Khóa cửa rồi =))))
-                        .inner-incoming 
-                            .inner-name Em Yêu
-                            .inner-content 
-                                | Thì em bảo nhà em không có ai ở nhà mà :))))
+                        each chat in chats 
+                            div(class=(chat.infoUser.id == user.id ? "inner-outgoing":"inner-incoming"))
+                                if(chat.infoUser.id != user.id)
+                                    .inner-name #{chat.infoUser.fullName}
+                                .inner-content  
+                                    | #{chat.content} 
+                        //- .inner-incoming
+                        //-     .inner-name Em Yêu
+                        //-     .inner-content 
+                        //-         | Anh ơi sang nhà em nha, nhà em không có ai cả 
+                        //- .inner-outgoing 
+                        //-     .inner-content 
+                        //-         | Thế à, Ok em iu 
+                        //- .inner-incoming 
+                        //-     .inner-name Em Yêu
+                        //-     .inner-content 
+                        //-         | Nhanh nha nhé
+                        //- .inner-outgoing 
+                        //-     .inner-content 
+                        //-         | Khóa cửa rồi =))))
+                        //- .inner-incoming 
+                        //-     .inner-name Em Yêu
+                        //-     .inner-content 
+                        //-         | Thì em bảo nhà em không có ai ở nhà mà :))))
                         .inner-foot 
                             form(
                                 class="inner-form"
@@ -37,6 +43,7 @@ block main
                                     class="form-control"
                                     type="text"
                                     placeholder="Nhập tin nhắn của bạn..."
+                                    name="content"
                                 )
                                 button
                                     i.fa-solid.fa-paper-plane
