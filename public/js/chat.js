@@ -33,7 +33,15 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
     }
     div.innerHTML = `${htmlFullName}<div class="inner-content">${data.content}</div>`
 
-    body.appendChild(div)
+    body.appendChild(div);
+    body.scrollTop = body.scrollHeight;
 })
 
 // END SERVER_RETURN_MESSAGE
+
+//Scroll Chat 
+const bodyChat = document.querySelector('.chat .inner-body');
+if(bodyChat){
+    bodyChat.scrollTop = bodyChat.scrollHeight;
+}
+//End Schroll Chat
