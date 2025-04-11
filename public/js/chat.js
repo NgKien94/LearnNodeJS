@@ -1,4 +1,13 @@
-import * as Popper from 'https://cdn.jsdelivr.net/npm/@popperjs/core@^2/dist/esm/index.js'
+import * as Popper from 'https://cdn.jsdelivr.net/npm/@popperjs/core@^2/dist/esm/index.js';
+// file upload with preview
+const { FileUploadWithPreview } = await import('https://cdn.skypack.dev/file-upload-with-preview');
+//File upload with image preview
+
+const upload = new FileUploadWithPreview('upload-image',{
+    multiple:true,
+    maxFileCount: 6
+});
+//End file upload with image preview
 
 // CLIENT_SEND_MESSAGE
 const formSendData = document.querySelector('.chat .inner-form');
@@ -6,8 +15,10 @@ if (formSendData) {
     formSendData.addEventListener('submit', (e) => {
         e.preventDefault()
         const content = e.target.elements.content.value;
+        const images = upload.cachedFileArray || [];
 
-        if (content) {
+        if (content || images.length > 0) {
+            // Fix here, gửi ảnh hoặc content lên server
             socket.emit("CLIENT_SEND_MESSAGE", content)
             e.target.elements.content.value = "";
             socket.emit('CLIENT_SEND_TYPING', "hidden")
@@ -137,3 +148,4 @@ if (elementListTyping) {
 }
 
 //END SERVER_RETURN_TYPING
+
