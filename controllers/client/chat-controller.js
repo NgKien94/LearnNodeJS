@@ -24,8 +24,20 @@ module.exports.index =  async (req, res) => {
                 content: content
             });
             
-        })
+        });
+
+        socket.on("CLIENT_SEND_TYPING",(type)=>{
+            socket.broadcast.emit('SERVER_RETURN_TYPING',{
+                userId : userId,
+                fullName: fullName,
+                type: type
+            });
+
+        });
+
       })
+
+  
 
       // Dùng once để kết nối một lần duy nhất, không bị reload id sau mỗi lần load trang
     //End Socket io
