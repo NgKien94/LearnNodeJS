@@ -74,6 +74,12 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
     `
 
     body.insertBefore(div, boxTyping);
+    // Preview image upload
+    const boxImages = div.querySelector('.inner-images');
+    if(boxImages){
+        const gallery = new Viewer(boxImages);
+    }
+    // End preview image upload
     body.scrollTop = body.scrollHeight;
 })
 
@@ -173,3 +179,9 @@ if (elementListTyping) {
 
 //END SERVER_RETURN_TYPING
 
+// Preview Image , zoom in zoom out
+const chatBody = document.querySelector('.chat .inner-body');
+if(chatBody){
+    const gallery = new Viewer(chatBody);
+}
+// End preview image, zoom in zoom out
