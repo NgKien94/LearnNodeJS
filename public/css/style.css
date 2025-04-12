@@ -414,28 +414,28 @@ End show alert
     object-fit: contain;
     background: #efe;
     padding: 10px;
-    margin: 0 5px 5px 0 ;
+    margin: 0 5px 5px 0;
     border-radius: 5px;
 }
 
-.chat .inner-body .inner-outgoing .inner-images{
+.chat .inner-body .inner-outgoing .inner-images {
     margin-left: auto;
     text-align: right;
 }
 
-.chat .inner-body .inner-outgoing .inner-images img{
+.chat .inner-body .inner-outgoing .inner-images img {
     margin: 0 0 5px 5px;
 }
 
-.chat .inner-preview-images{
+.chat .inner-preview-images {
     position: relative;
 }
 
-.chat .inner-preview-images .label-container{
+.chat .inner-preview-images .label-container {
     display: none;
 }
 
-.chat .inner-preview-images .input-container{
+.chat .inner-preview-images .input-container {
     display: none;
 }
 
@@ -446,8 +446,8 @@ End show alert
 }
 
 .chat .inner-preview-images .image-preview-item {
-   width: 90px;
-   background-size: contain;
+    width: 90px;
+    background-size: contain;
 }
 
 
@@ -518,13 +518,91 @@ End show alert
 
 /*Emoji picker*/
 .tooltip {
-   visibility: hidden;
+    visibility: hidden;
 }
 
-.tooltip.shown{
+.tooltip.shown {
     visibility: visible;
     opacity: 1;
 }
 
 
 /*End emoji picker*/
+
+
+/*box-user*/
+.box-user {
+    display: flex;
+    width: 350px;
+    align-items: center;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    transition: box-shadow 0.3s ease;
+}
+
+.box-user:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.box-user .inner-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #f2f2f2;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.box-user .inner-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.box-user .inner-info {
+    flex: 1;
+}
+
+.box-user .inner-info .inner-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.box-user .inner-info .inner-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.box-user .inner-info .inner-buttons button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.box-user .inner-info .inner-buttons .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.box-user .inner-info .inner-buttons .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.box-user .inner-info .inner-buttons .btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.box-user .inner-info .inner-buttons .btn-secondary:hover {
+    background-color: #5a6268;
+}
