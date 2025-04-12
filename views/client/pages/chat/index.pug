@@ -22,6 +22,9 @@ block main
                                         each image in chat.images 
                                             img(src=image,alt="")
                         div(class="inner-list-typing")
+                    .inner-preview-images
+                        div(class="custom-file-container" data-upload-id="upload-image")
+
                     .inner-foot 
                         form(
                             class="inner-form"
@@ -33,7 +36,10 @@ block main
                                 placeholder="Nhập tin nhắn của bạn..."
                                 name="content"
                             )
-                            div(class="custom-file-container" data-upload-id="upload-image")
+                            label(for="file-upload-with-preview-upload-image" 
+                                    class="btn btn-light mx-2 mb-0"
+                                    ) 
+                                i(class="fa fa-regular fa-image")
                             span(class="button-icon btn btn-light mx-2")  
                                 i(class="fa-solid fa-face-smile")
                             button
